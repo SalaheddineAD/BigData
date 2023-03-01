@@ -22,7 +22,7 @@ public class Main {
 		return mapper;
 	}
 	
-	public static List<GroupByPair<String,Integer>> shuffleSort(Mapper<Pair> mapper) {
+	public static List<GroupByPair<String,Integer>> reducer(Mapper<Pair> mapper) {
 //		transforing the mapper into a stream of pairs
 		Stream<Pair> stream = mapper.getList().stream();
 //		sorting the stream of pairs
@@ -30,7 +30,7 @@ public class Main {
 //		creating a list of grouBypPair
 		List<GroupByPair<String,Integer>> result=new ArrayList<GroupByPair<String,Integer>>();
 //		Stream<GroupByPair<String,Integer>> result_stream=result.stream();
-//		concatenating
+//		reducing
 		stream.forEach(e->{
 //			result_stream=result.stream()
 //					.filter(e2->e2.getKey().equals(e))
@@ -49,24 +49,14 @@ public class Main {
 		});
 		return result;
 	}
-	
-	public static List<Pair> reducer(List<GroupByPair<String,Integer>> groupByPair){
-		List<Pair> result=new ArrayList<Pair>();
-		groupByPair.forEach(e->{
-			result.add(new Pair(e.getKey(),e.getListValue().stream().reduce(0,(a,b)->a+b)));
-		});
-		return result;
-	}
-	
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		try (Stream<String> stream = Files.lines(Paths.get(String.valueOf(
 				new File("D:\\CAREER\\MIU\\Big Data\\assignments\\W1D1\\testDataForW1D1.txt"))))) {
-//			System.out.println(shuffleSort(mapper(stream.reduce("",(a,b)->a+b))).toString());
-			System.out.println(reducer(shuffleSort(mapper(stream.reduce("",(a,b)->a+b)))).toString());
-
+			System.out.println(reducer(mapper(stream.reduce("",(a,b)->a+b))).toString());
+			System.out.println();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
