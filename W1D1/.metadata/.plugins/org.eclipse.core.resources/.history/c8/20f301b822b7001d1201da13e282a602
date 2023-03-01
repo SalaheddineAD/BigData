@@ -1,0 +1,16 @@
+package myPackage;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String myString="salah-kim";
+		String [] result =myString.split("[ ,-?]");
+		for(String s :
+			result) {
+			System.out.println(s);
+		}
+
+	}
+
+}

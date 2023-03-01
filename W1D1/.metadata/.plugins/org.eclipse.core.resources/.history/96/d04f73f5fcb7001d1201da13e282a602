@@ -1,0 +1,61 @@
+package myPackage;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Main {
+	public static Mapper mapper(String input) {
+		Stream<String> stream = Arrays.stream(input.split("[ ,.-?!]"));
+		stream = stream.map(String::toLowerCase);
+		Mapper mapper =new Mapper<Pair>();
+		stream.map(Pair::new).forEach(e->{
+			if(!e.getKey().matches(".*[0-9_.\\s].*|^$"))
+				mapper.add(e);
+			});
+		return mapper;
+	}
+	
+	public static List<GroupByPair<String,Integer>> reducer(Mapper<Pair> mapper) {
+//		transforing the mapper into a stream of pairs
+		Stream<Pair> stream = mapper.getList().stream();
+//		sorting the stream of pairs
+		stream=stream.sorted((e1,e2)->e1.getKey().compareTo(e2.getKey()));
+//		creating a list of grouBypPair
+		List<GroupByPair<String,Integer>> result=new ArrayList<GroupByPair<String,Integer>>();
+//		Stream<GroupByPair<String,Integer>> result_stream=result.stream();
+//		reducing
+		stream.forEach(e->{
+//			result_stream=result.stream()
+//					.filter(e2->e2.getKey().equals(e))
+//					.forEach(e2->e2.add(e.getValue()));		
+			for(GroupByPair<String,Integer> tmp : result) {
+				if( tmp.getKey().equals(e.getKey())) {
+					System.out.println("khdam");
+					tmp.add(e.getValue());
+				}
+			}
+		});
+		return result;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		try (Stream<String> stream = Files.lines(Paths.get(String.valueOf(
+				new File("D:\\CAREER\\MIU\\Big Data\\assignments\\W1D1\\testDataForW1D1.txt"))))) {
+			System.out.println(reducer(mapper(stream.reduce("",(a,b)->a+b))).toString());
+			System.out.println();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
