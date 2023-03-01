@@ -91,7 +91,7 @@ public class Main {
 	}
 	
 	public static int getPartition(String key){
-		return (int) Math.abs(key.hashCode() % number_reducers);
+		return (int) key.hashCode() % number_reducers;
 	}
 
 	
@@ -120,7 +120,7 @@ public class Main {
 			list_output_mapper.stream().forEach(mapper->{
 				mapper.getList().stream()
 					.forEach(pair->{
-						list_input_reducer.get(getPartition(pair.getKey())).add(pair);
+						System.out.println(list_input_reducer.get(getPartition(pair.getKey())).toArray().length);//.add(pair)
 					});
 				});
 			System.out.println("khdam");

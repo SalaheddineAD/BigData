@@ -120,7 +120,8 @@ public class Main {
 			list_output_mapper.stream().forEach(mapper->{
 				mapper.getList().stream()
 					.forEach(pair->{
-						list_input_reducer.get(getPartition(pair.getKey())).add(pair);
+						System.out.print(getPartition(pair.getKey()));
+						System.out.println(list_input_reducer.get(getPartition(pair.getKey()))==null);//.add(pair)
 					});
 				});
 			System.out.println("khdam");

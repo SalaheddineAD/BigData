@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
-	private static int number_reducers=3;
-	private static int number_mappers=7;	
+	private static int number_reducers;
+	private static int number_mappers;	
 	
 	public static Mapper mapper(String input) {
 		Stream<String> stream = Arrays.stream(input.split("[ ,.-?!]"));
@@ -91,7 +91,7 @@ public class Main {
 	}
 	
 	public static int getPartition(String key){
-		return (int) Math.abs(key.hashCode() % number_reducers);
+		return (int) key.hashCode() % number_reducers;
 	}
 
 	
@@ -116,7 +116,6 @@ public class Main {
 			stream.forEach(e->{
 				list_output_mapper.add(mapper(e));
 			});
-			
 			list_output_mapper.stream().forEach(mapper->{
 				mapper.getList().stream()
 					.forEach(pair->{
@@ -124,9 +123,9 @@ public class Main {
 					});
 				});
 			System.out.println("khdam");
-			for (List<Pair> list :list_input_reducer.values()) {
-				System.out.println(reducer(shuffleSort(list)).toString());
-			}
+//			for (List<Pair> list :list_input_reducer.values()) {
+//				System.out.println(reducer(shuffleSort(list)).toString());
+//			}
 			
 			
 

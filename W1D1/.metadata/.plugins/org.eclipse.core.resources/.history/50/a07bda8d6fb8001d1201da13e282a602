@@ -91,7 +91,7 @@ public class Main {
 	}
 	
 	public static int getPartition(String key){
-		return (int) Math.abs(key.hashCode() % number_reducers);
+		return (int) key.hashCode() % number_reducers;
 	}
 
 	
