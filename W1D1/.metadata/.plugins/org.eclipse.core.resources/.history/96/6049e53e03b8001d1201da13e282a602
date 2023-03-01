@@ -32,7 +32,7 @@ public class GroupByPair <K,V> {
 		this.listValue.add(value);
 	}
 	public String toString() {
-		return "key= "+this.key+", value= "+this.listValue.toString()+"\n";
+		return "key= "+this.key+", value= "+this.listValue.toString()+"/n";
 	}
 	
 }

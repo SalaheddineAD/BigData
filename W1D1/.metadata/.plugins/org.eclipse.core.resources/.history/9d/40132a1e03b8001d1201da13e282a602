@@ -31,8 +31,5 @@ public class GroupByPair <K,V> {
 	public void add(V value) {
 		this.listValue.add(value);
 	}
-	public String toString() {
-		return "key= "+this.key+", value= "+this.listValue.toString()+"\n";
-	}
 	
 }

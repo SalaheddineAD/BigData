@@ -38,13 +38,15 @@ public class Main {
 			boolean found=false;
 			for(GroupByPair<String,Integer> tmp : result) {
 				if( tmp.getKey().equals(e.getKey())) {
+					System.out.println("khdam");
 					tmp.add(e.getValue());
 					found=true;
 					break;
 				}
 			}
 			if(found==false) {
-				result.add(new GroupByPair<String,Integer>(e.getKey(),new ArrayList<Integer>(Arrays.asList(e.getValue()))));
+				result.add(new GroupByPair<String,Integer>(e.getKey(),new ArrayList<Integer>(e.getValue())));
+				
 			}
 		});
 		return result;

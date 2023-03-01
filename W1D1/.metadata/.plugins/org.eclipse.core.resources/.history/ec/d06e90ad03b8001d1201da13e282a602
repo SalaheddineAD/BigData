@@ -44,7 +44,7 @@ public class Main {
 				}
 			}
 			if(found==false) {
-				result.add(new GroupByPair<String,Integer>(e.getKey(),new ArrayList<Integer>(Arrays.asList(e.getValue()))));
+				result.add(new GroupByPair<String,Integer>(e.getKey(),new ArrayList<Integer>(e.getValue())));
 			}
 		});
 		return result;
