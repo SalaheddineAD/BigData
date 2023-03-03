@@ -32,18 +32,16 @@ public class Main {
 		Mapper<Pair> mapper =new Mapper<Pair>();
 		
 		stream.forEach(e->{
-			if(!e.matches(".*[0-9_.\\s].*|^$")) {
-				boolean found=false;
-				for(Pair p : mapper.getList()) {
-					if(e.equals(p.getKey())) {
-						p.setValue(p.getValue()+1);
-						found=true;
-						break;
-					}
+			boolean found=false;
+			for(Pair p : mapper.getList()) {
+				if(e.equals(p.getKey())) {
+					p.setValue(p.getValue()+1);
+					found=true;
+					break;
 				}
-				if(found==false) {
-					mapper.add(new Pair(e));
-				}
+			}
+			if(found==false) {
+				mapper.add(new Pair(e));
 			}
 		});
 

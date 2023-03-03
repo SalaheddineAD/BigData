@@ -26,33 +26,6 @@ public class Main {
 			});
 		return mapper;
 	}
-	public static Mapper inMapper(String input) {
-		Stream<String> stream = Arrays.stream(input.split("[ ,.-?!]"));
-		stream = stream.map(String::toLowerCase);
-		Mapper<Pair> mapper =new Mapper<Pair>();
-		
-		stream.forEach(e->{
-			if(!e.matches(".*[0-9_.\\s].*|^$")) {
-				boolean found=false;
-				for(Pair p : mapper.getList()) {
-					if(e.equals(p.getKey())) {
-						p.setValue(p.getValue()+1);
-						found=true;
-						break;
-					}
-				}
-				if(found==false) {
-					mapper.add(new Pair(e));
-				}
-			}
-		});
-
-//		stream.map(Pair::new).forEach(e->{
-//			if(!e.getKey().matches(".*[0-9_.\\s].*|^$"))
-//				mapper.add(e);
-//			});
-		return mapper;
-	}
 	
 	public static List<GroupByPair<String,Integer>> shuffleSort(Mapper<Pair> mapper) {
 //		transforing the mapper into a stream of pairs
@@ -61,10 +34,12 @@ public class Main {
 		stream=stream.sorted((e1,e2)->e1.getKey().compareTo(e2.getKey()));
 //		creating a list of grouBypPair
 		List<GroupByPair<String,Integer>> result=new ArrayList<GroupByPair<String,Integer>>();
+//		Stream<GroupByPair<String,Integer>> result_stream=result.stream();
 //		concatenating
 		stream.forEach(e->{
 //			result_stream=result.stream()
-
+//					.filter(e2->e2.getKey().equals(e))
+//					.forEach(e2->e2.add(e.getValue()));	
 			boolean found=false;
 			for(GroupByPair<String,Integer> tmp : result) {
 				if( tmp.getKey().equals(e.getKey())) {
@@ -86,8 +61,12 @@ public class Main {
 		stream=stream.sorted((e1,e2)->e1.getKey().compareTo(e2.getKey()));
 //		creating a list of grouBypPair
 		List<GroupByPair<String,Integer>> result=new ArrayList<GroupByPair<String,Integer>>();
+//		Stream<GroupByPair<String,Integer>> result_stream=result.stream();
 //		concatenating
-		stream.forEach(e->{	
+		stream.forEach(e->{
+//			result_stream=result.stream()
+//					.filter(e2->e2.getKey().equals(e))
+//					.forEach(e2->e2.add(e.getValue()));	
 			boolean found=false;
 			for(GroupByPair<String,Integer> tmp : result) {
 				if( tmp.getKey().equals(e.getKey())) {
@@ -131,22 +110,22 @@ public class Main {
 		try (Stream<String> stream = Files.lines(Paths.get(String.valueOf(
 				new File("D:\\CAREER\\MIU\\Big Data\\assignments\\W1D1\\testDataForW1D1.txt"))))) {
 			
-//			System.out.println(shuffleSort(mapper(stream.reduce("",(a,b)->a+b))).toString());
+			System.out.println(shuffleSort(mapper(stream.reduce("",(a,b)->a+b))).toString());
 //			System.out.println(reducer(shuffleSort(mapper(stream.reduce("",(a,b)->a+b)))).toString());
 			
-			stream.forEach(e->{
-				list_output_mapper.add(inMapper(e));
-			});
-			
-			list_output_mapper.stream().forEach(mapper->{
-				mapper.getList().stream()
-					.forEach(pair->{
-						list_input_reducer.get(getPartition(pair.getKey())).add(pair);
-					});
-				});
-			for (List<Pair> list :list_input_reducer.values()) {
-				System.out.println(reducer(shuffleSort(list)).toString());
-			}
+//			stream.forEach(e->{
+//				list_output_mapper.add(mapper(e));
+//			});
+//			
+//			list_output_mapper.stream().forEach(mapper->{
+//				mapper.getList().stream()
+//					.forEach(pair->{
+//						list_input_reducer.get(getPartition(pair.getKey())).add(pair);
+//					});
+//				});
+//			for (List<Pair> list :list_input_reducer.values()) {
+//				System.out.println(reducer(shuffleSort(list)).toString());
+//			}
 			
 			
 
